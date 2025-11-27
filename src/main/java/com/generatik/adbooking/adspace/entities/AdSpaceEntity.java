@@ -46,7 +46,7 @@ public class AdSpaceEntity {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false, length = 50)
+    @Column(name = "type", nullable = false, length = 255)
     private AdSpaceType type;
 
     @NotBlank
@@ -64,7 +64,7 @@ public class AdSpaceEntity {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "availability_status", nullable = false, length = 50)
+    @Column(name = "availability_status", nullable = false, length = 255)
     private AdSpaceAvailabilityStatus availabilityStatus;
 
     @Column(name = "created_at", nullable = false, updatable = false)

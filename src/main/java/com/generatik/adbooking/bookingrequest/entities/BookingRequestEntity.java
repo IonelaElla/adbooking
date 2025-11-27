@@ -65,7 +65,7 @@ public class BookingRequestEntity {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 50)
+    @Column(name = "status", nullable = false, length = 255)
     private BookingStatus status;
 
     @NotNull
