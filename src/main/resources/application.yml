@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ad_space_booking
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: Orhidee123
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+server:
+  port: 8080
