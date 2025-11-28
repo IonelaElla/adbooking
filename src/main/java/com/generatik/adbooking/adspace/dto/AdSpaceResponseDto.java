@@ -8,13 +8,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AdSpaceResponseDto {
 
-    private Long id;
+    private UUID uuid;
     private String name;
     private AdSpaceType type;
     private String city;

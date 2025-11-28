@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,8 +16,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BookingRequestResponseDto {
 
-    private Long id;
-    private Long adSpaceId;
+    private UUID uuid;
+    private UUID adSpaceUuid;
     private String adSpaceName;
     private String advertiserName;
     private String advertiserEmail;

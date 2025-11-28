@@ -18,7 +18,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "ad_space")
 public class AdSpaceEntity {
@@ -79,6 +79,8 @@ public class AdSpaceEntity {
     @PrePersist
     protected void onCreate() {
         createdAt = ZonedDateTime.now();
+        updatedAt = ZonedDateTime.now();
+
     }
 
     @PreUpdate

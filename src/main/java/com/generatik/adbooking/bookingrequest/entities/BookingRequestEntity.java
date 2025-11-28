@@ -18,7 +18,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "booking_request")
 public class BookingRequestEntity {
@@ -81,6 +81,7 @@ public class BookingRequestEntity {
     @PrePersist
     protected void onCreate() {
         createdAt = ZonedDateTime.now();
+        updatedAt = ZonedDateTime.now();
     }
 
     @PreUpdate
