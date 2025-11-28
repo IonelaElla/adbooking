@@ -20,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -27,6 +30,19 @@ import java.time.Period;
 public class BookingRequestService {
     private final BookingRequestRepository bookingRequestRepository;
     private final AdSpaceRepository adSpaceRepository;
+
+    public List<BookingRequestResponseDto> getAllBookingRequests() {
+        List<BookingRequestEntity> entities = this.bookingRequestRepository.findAll();
+        return entities.stream().map((BookingRequestMapper::toDto)).collect(Collectors.toList());
+    }
+
+    public BookingRequestResponseDto getBookingRequest(UUID uuid) {
+        BookingRequestEntity entity = this.bookingRequestRepository.findByUuid(uuid).orElse(null);
+        if (entity == null) {
+            throw new ResourceNotFoundException(String.format("Booking request with uuid %s not found", uuid));
+        }
+        return BookingRequestMapper.toDto(entity);
+    }
 
     @Transactional
     public BookingRequestResponseDto createBookingRequest(BookingRequestCreateDto bookingRequestCreateDto) {
@@ -41,6 +57,36 @@ public class BookingRequestService {
 
         BookingRequestEntity savedEntity = this.bookingRequestRepository.save(entity);
         return BookingRequestMapper.toDto(savedEntity);
+    }
+
+    public BookingRequestResponseDto approveBookingRequest(UUID uuid) {
+        BookingRequestEntity entity = this.bookingRequestRepository.findByUuid(uuid).orElseThrow(() -> new ResourceNotFoundException(String.format("Booking request with uuid %s not found", uuid)));
+
+        if (entity.getStatus() != BookingStatus.PENDING) {
+            throw new ResourcesConflictException("Only pending bookings can be approved");
+        }
+
+        if (this.bookingRequestRepository.existsAtLeastOneOverlappingDateRange(entity.getAdSpace().getUuid(), entity.getStartDate(), entity.getEndDate(), BookingStatus.APPROVED)) {
+            throw new ResourcesConflictException("Cannot create overlapping bookings for the same space (for approved bookings)");
+        }
+        entity.setStatus(BookingStatus.APPROVED);
+        BookingRequestEntity updatedEntity = this.bookingRequestRepository.save(entity);
+        return BookingRequestMapper.toDto(updatedEntity);
+
+    }
+
+    public BookingRequestResponseDto rejectBookingRequest(UUID uuid) {
+        BookingRequestEntity entity = this.bookingRequestRepository.findByUuid(uuid).orElseThrow(() -> new ResourceNotFoundException(String.format("Booking request with uuid %s not found", uuid)));
+
+        if (entity.getStatus() != BookingStatus.PENDING) {
+            throw new ResourcesConflictException("Only pending bookings can be rejected");
+        }
+
+
+        entity.setStatus(BookingStatus.REJECTED);
+        BookingRequestEntity updatedEntity = this.bookingRequestRepository.save(entity);
+        return BookingRequestMapper.toDto(updatedEntity);
+
     }
 
     private BigDecimal computeTotalCost(LocalDate startDate, LocalDate endDate, BigDecimal pricePerDay) {
