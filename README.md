@@ -13,6 +13,7 @@ Java Spring Boot application that allows advertisers to browse available adverti
 * The application focuses on core features such as submitting booking requests. It does not include an admin portal for capabilities like creating ad spaces; instead, it relies on a [script](./src/main/resources/db/dml/insert_ad_spaces.sql) to insert ad spaces directly into the PostgreSQL database.
 * An advertiser cannot submit a new booking request if its dates overlap with any existing approved bookings for the same ad space. Likewise, before approving a request, the application verifies that the requested dates do not conflict with other approved bookings.
 * The current version of the application allows multiple users to submit booking requests without checking for conflicts with other pending requests. However, administrators may approve events based on a FIFO principle.
+* We use a UUID as the entity’s external ID to avoid exposing the internal database ID through our endpoints for security reasons.
 
 ## Ad Spaces Booking API – Specification
 
@@ -122,4 +123,8 @@ ad-booking/
 1. Navigate to the project root.
 2. ```mvn clean install```
 3. ```mvn spring-boot:run```
+4. Create ad space booking Postgres database.
+5. Run the following SQL scripts to create the database schema:
+   * [create_ad_space_table.sql](src/main/resources/db/ddl/create_ad_space_table.sql) 
+   * [create_booking_request_table.sql](src/main/resources/db/ddl/create_booking_request_table.sql)
 
