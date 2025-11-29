@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "59dd7841-7e71-49ac-8a81-70dd7f0dfb83",
+		"name": "Ad Spaces Booking API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29389111"
+	},
+	"item": [
+		{
+			"name": "Get Available Ad Spaces",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/ad-spaces?city=Oradea&type=BILLBOARD",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"ad-spaces"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Oradea"
+						},
+						{
+							"key": "type",
+							"value": "BILLBOARD"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Booking Requests",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/booking-requests",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"booking-requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Ad Space",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/ad-spaces/f1ba6be7-b085-4bf3-8145-ebc198a9fa",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"ad-spaces",
+						"f1ba6be7-b085-4bf3-8145-ebc198a9fa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Booking Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/booking-requests/6b1d2e31-894c-418d-82fe-4ddb9ab7569d",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"booking-requests",
+						"6b1d2e31-894c-418d-82fe-4ddb9ab7569d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Booking Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"adSpaceUuid\": \"283146da-626b-4fb4-8fb5-27a775c20dea\",\r\n    \"advertiserName\": \"Ella\",\r\n    \"advertiserEmail\": \"Ella@gmail.com\",\r\n    \"startDate\": \"2026-01-08\",\r\n    \"endDate\": \"2026-03-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/booking-requests",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"booking-requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Approve Booking Request",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/booking-requests/fda1bc11-2c9a-4764-aa10-62ef59f372b3/approve",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"booking-requests",
+						"fda1bc11-2c9a-4764-aa10-62ef59f372b3",
+						"approve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reject Booking Request",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/booking-requests/fda1bc11-2c9a-4764-aa10-62ef59f372b3/reject",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"booking-requests",
+						"fda1bc11-2c9a-4764-aa10-62ef59f372b3",
+						"reject"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
